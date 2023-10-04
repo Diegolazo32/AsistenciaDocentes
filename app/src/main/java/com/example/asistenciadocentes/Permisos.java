@@ -4,5 +4,4 @@ public class Permisos {
     String id;
     String nombre;
     String apellido;
-    String permiso;
-}
+    String permiso;}

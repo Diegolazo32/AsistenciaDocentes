@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "372187188798",
+    "firebase_url": "https://dbasistenciadocente-default-rtdb.firebaseio.com",
+    "project_id": "dbasistenciadocente",
+    "storage_bucket": "dbasistenciadocente.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372187188798:android:b64f2a8573dc46cec28b6f",
+        "android_client_info": {
+          "package_name": "com.example.asistenciadocente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372187188798-mibok5q1qmoj9o8v8t7be6o86er14kkh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asistenciadocente",
+            "certificate_hash": "e2768cc5f2cc2263670309f92ca0e5ae12aab144"
+          }
+        },
+        {
+          "client_id": "372187188798-uu4n3n651a4q1k0d0fi70nh05ulii7sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd4dglV2W5_4jl301iQyZNJcgAmBT1E2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372187188798-jo6nncmjhb9v312ncj02sn6vjaebkg9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372187188798:android:5314ed58db0bcd4fc28b6f",
+        "android_client_info": {
+          "package_name": "com.example.asistenciadocentes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372187188798-h4hftflchsujbsv69rhatppqpjn3vo6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.asistenciadocentes",
+            "certificate_hash": "e2768cc5f2cc2263670309f92ca0e5ae12aab144"
+          }
+        },
+        {
+          "client_id": "372187188798-uu4n3n651a4q1k0d0fi70nh05ulii7sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd4dglV2W5_4jl301iQyZNJcgAmBT1E2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372187188798-jo6nncmjhb9v312ncj02sn6vjaebkg9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
