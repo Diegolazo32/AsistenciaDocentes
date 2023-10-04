@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Principal"/>
+        <item
+            android:id="@+id/nav_bit"
+            android:icon="@drawable/ic_bitacora"
+            android:title="Bitacora Asistencias"/>
+        <item
+            android:id="@+id/nav_doc"
+            android:icon="@drawable/ic_profesor"
+            android:title="Docentes"/>
+        <item
+            android:id="@+id/nav_incap"
+            android:icon="@drawable/ic_incapacidades"
+            android:title="Incapacidaes"/>
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Cerrar Sesion"/>
+        </menu>
+    </item>
+</menu>
