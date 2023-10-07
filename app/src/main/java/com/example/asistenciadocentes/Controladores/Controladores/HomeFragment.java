@@ -37,7 +37,6 @@ public class HomeFragment extends Fragment {
                     bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                 }
             }
-
             ImageView imageViewQrCode = view.findViewById(R.id.imgQR);
             imageViewQrCode.setImageBitmap(bitmap);
         } catch (WriterException e) {

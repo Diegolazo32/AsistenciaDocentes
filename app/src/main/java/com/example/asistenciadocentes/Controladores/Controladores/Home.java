@@ -44,7 +44,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         // Obtener el ImageView del header del NavigationView
         View headerView = navigationView.getHeaderView(0);
         ImageView navUserPhoto = headerView.findViewById(R.id.ImgNavHed);
-
         // Cargar la foto de perfil del usuario
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
@@ -57,15 +56,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 referencia.setValue(PPURL);
             }
         }
-
         // Inicializar GoogleSignInClient
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
                 R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -85,7 +81,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
@@ -110,7 +105,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 return true;
             }
         });
-    }
+    }//Cierre del onCreate
 
     @Override
     public void onBackPressed() {
@@ -126,4 +121,4 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         // Si borro esto ya no funciona jaja (No lo borren)
         return false;
     }
-}
+}//Cierre de la clase Home
