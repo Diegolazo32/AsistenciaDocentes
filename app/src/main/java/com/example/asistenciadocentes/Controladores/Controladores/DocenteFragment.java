@@ -107,11 +107,8 @@ public class DocenteFragment extends Fragment {
     private void mostrarAlertDialogDiasTrabajados(final TextView textView, final TextView textView2, final TextView textView3) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Selecciona los días trabajados");
-
         final boolean[] seleccionados = new boolean[7]; // Array para almacenar las selecciones
-
         String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
-
         builder.setMultiChoiceItems(diasSemana, seleccionados, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -119,9 +116,10 @@ public class DocenteFragment extends Fragment {
                     mostrarTimePickerDialog("Salida para " + diasSemana[which], horasSalida, which);
                     mostrarTimePickerDialog("Entrada para " + diasSemana[which], horasEntrada, which);
                 } else {
-                    // Eliminar entrada y salida para el día deseleccionado
                     horasEntrada.remove(which);
                     horasSalida.remove(which);
+                    textView2.setText(horasEntrada.toString());
+                    textView3.setText(horasSalida.toString());
                 }
                 seleccionados[which] = isChecked;
             }
@@ -145,6 +143,9 @@ public class DocenteFragment extends Fragment {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                diasSeleccionados.clear();
+                horasEntrada.clear();
+                horasSalida.clear();
                 dialog.dismiss();
             }
         });
@@ -203,6 +204,10 @@ public class DocenteFragment extends Fragment {
         dias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Limpiamos los arraylist de horas
+                txtdias.setText(diasSeleccionados.toString());
+                txtentrada.setText(horasEntrada.toString());
+                txtsalida.setText(horasSalida.toString());
                 mostrarAlertDialogDiasTrabajados(txtdias, txtentrada, txtsalida);
             }
         });
