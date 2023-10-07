@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categorias">
+        <item>Enfermedad</item>
+        <item>Maternidad/Paternidad</item>
+        <item>Fallecimiento de pariente</item>
+        <item>Enfermedad de pariente</item>
+        <item>Asuntos personales (Sin goce de sueldo)</item>
+        <item>Tiempo compensatorio</item>
+    </string-array>
+</resources>

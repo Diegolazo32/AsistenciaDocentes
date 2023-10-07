@@ -92,6 +92,8 @@
             android:layout_width="375dp"
             android:layout_height="62dp"
             android:layout_marginTop="16dp"
+            android:entries="@array/categorias"
+            android:autofillHints="Ingrese el tipo de permiso"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.305"
             app:layout_constraintStart_toStartOf="parent"

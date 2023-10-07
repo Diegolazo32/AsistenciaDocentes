@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialogContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/dialogContainer"
     android:background="@drawable/dialogbg">
 
     <ImageView
@@ -26,8 +26,8 @@
         android:padding="8dp"
         android:text="Agregar Docente"
         android:textAlignment="viewStart"
-        android:textStyle="bold"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,77 +107,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cont_titulo" />
 
-    <Button
-        android:id="@+id/btn_entrada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/red"
-        android:text="Entrada"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_dia" />
-
-    <Button
-        android:id="@+id/btn_salida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Salida"
-        android:backgroundTint="@color/red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.821"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_dia" />
-
     <TextView
         android:id="@+id/txt_diastra"
         android:layout_width="253dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text=" "
-        android:textStyle="bold"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/btn_dia"
         app:layout_constraintTop_toBottomOf="@+id/cont_titulo" />
 
     <TextView
         android:id="@+id/txt_entrada"
-        android:layout_width="102dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="253dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="12dp"
         android:text=" "
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_entrada" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_dia" />
 
     <TextView
         android:id="@+id/txt_salida"
-        android:layout_width="87dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="253dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="88dp"
         android:text=" "
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintHorizontal_bias="0.898"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_salida" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_diastra" />
 
     <Button
         android:id="@+id/btn_confirmar"
         android:layout_width="392dp"
         android:layout_height="47dp"
-        android:layout_marginTop="24dp"
-        android:text="Agregar Docente"
+        android:layout_marginTop="88dp"
         android:backgroundTint="@color/red"
+        android:text="Agregar Docente"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_entrada" />
 

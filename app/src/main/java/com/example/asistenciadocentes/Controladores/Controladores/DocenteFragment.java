@@ -1,6 +1,7 @@
 package com.example.asistenciadocentes.Controladores.Controladores;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -21,7 +22,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -40,12 +40,17 @@ import java.util.Locale;
 public class DocenteFragment extends Fragment {
     String idaux;
     public ListView listvdocente;
+    ArrayList<String> diasSeleccionados = new ArrayList<>();
+    ArrayList<String> horasEntrada = new ArrayList<>();
+    ArrayList<String> horasSalida = new ArrayList<>();
+
     public ArrayList<Usuario> listadeDocentes;
     public AdapterDocente adapter;
     FirebaseAuth mAuth;
     Button btnaggDocente;
 
     DatabaseReference referencia = FirebaseDatabase.getInstance().getReference(); // Inicialización directa
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +66,7 @@ public class DocenteFragment extends Fragment {
         btnaggDocente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Valida si ya hay un bottom dialog abierto si ya esta abierto no abre otro
+                // Valida si ya hay un bottom dialog abierto si ya esta abierto no abre otro
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 if (fragmentManager.findFragmentByTag("bottom_dialog") == null) {
                     showBottomDialog();
@@ -99,9 +104,53 @@ public class DocenteFragment extends Fragment {
             }
         });
     }
+    private void mostrarAlertDialogDiasTrabajados(final TextView textView, final TextView textView2, final TextView textView3) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Selecciona los días trabajados");
 
+        final boolean[] seleccionados = new boolean[7]; // Array para almacenar las selecciones
 
-    private void mostrarTimePickerDialog(final TextView textView) {
+        String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+
+        builder.setMultiChoiceItems(diasSemana, seleccionados, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    mostrarTimePickerDialog("Salida para " + diasSemana[which], horasSalida, which);
+                    mostrarTimePickerDialog("Entrada para " + diasSemana[which], horasEntrada, which);
+                } else {
+                    // Eliminar entrada y salida para el día deseleccionado
+                    horasEntrada.remove(which);
+                    horasSalida.remove(which);
+                }
+                seleccionados[which] = isChecked;
+            }
+        });
+
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                diasSeleccionados.clear();
+                for (int i = 0; i < seleccionados.length; i++) {
+                    if (seleccionados[i]) {
+                        diasSeleccionados.add(diasSemana[i]);
+                    }
+                }
+                // Mostrar los días seleccionados en el TextView
+                textView.setText(diasSeleccionados.toString());
+                textView2.setText(horasEntrada.toString());
+                textView3.setText(horasSalida.toString());
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+    private void mostrarTimePickerDialog(String title, final ArrayList<String> listaHoras, final int indexDia) {
         Calendar cal = Calendar.getInstance();
         int hora = cal.get(Calendar.HOUR_OF_DAY);
         int minuto = cal.get(Calendar.MINUTE);
@@ -122,53 +171,14 @@ public class DocenteFragment extends Fragment {
 
                 String horaSeleccionada = String.format(Locale.getDefault(), "%02d:%02d %s", hourOfDay, minute, amPm);
 
-                // Mostrar la hora seleccionada en el TextView
-                textView.setText(horaSeleccionada);
+                // Guardar la hora seleccionada en el ArrayList
+                listaHoras.add(indexDia, horaSeleccionada);
             }
-        }, hora, minuto, false); // <- Cambia el último argumento a 'false'
+        }, hora, minuto, false);
 
+        timePickerDialog.setTitle(title);
         timePickerDialog.show();
     }
-
-    private void mostrarAlertDialogDiasTrabajados(final TextView textView) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Selecciona los días trabajados");
-
-        final boolean[] seleccionados = new boolean[7]; // Array para almacenar las selecciones
-
-        String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
-
-
-        builder.setMultiChoiceItems(diasSemana, seleccionados, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                seleccionados[which] = isChecked;
-            }
-        });
-
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ArrayList<String> diasSeleccionados = new ArrayList<>();
-                for (int i = 0; i < seleccionados.length; i++) {
-                    if (seleccionados[i]) {
-                        diasSeleccionados.add(diasSemana[i]);
-                    }
-                }
-                // Mostrar los días seleccionados en el TextView
-                textView.setText(diasSeleccionados.toString());
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.show();
-    }
-
-
     private void showBottomDialog() {
 
         final Dialog dialog = new Dialog(getContext());
@@ -179,8 +189,6 @@ public class DocenteFragment extends Fragment {
         EditText correo = dialog.findViewById(R.id.txt_correo);
         EditText titulo = dialog.findViewById(R.id.txt_titulo);
         Button dias = dialog.findViewById(R.id.btn_dia);
-        Button entrada = dialog.findViewById(R.id.btn_entrada);
-        Button salida = dialog.findViewById(R.id.btn_salida);
         Button guardar = dialog.findViewById(R.id.btn_confirmar);
         ImageView cerrar = dialog.findViewById(R.id.cancelButton);
         TextView txtentrada = dialog.findViewById(R.id.txt_entrada);
@@ -195,22 +203,10 @@ public class DocenteFragment extends Fragment {
         dias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mostrarAlertDialogDiasTrabajados(txtdias);
-            }
-        });
-        entrada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarTimePickerDialog(txtentrada);
+                mostrarAlertDialogDiasTrabajados(txtdias, txtentrada, txtsalida);
             }
         });
 
-        salida.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarTimePickerDialog(txtsalida);
-            }
-        });
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

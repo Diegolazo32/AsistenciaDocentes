@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,17 @@ public class HomeFragment extends Fragment {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        //Declaramos el button de generar permiso
+        Button btnGenerarPermiso = (Button) view.findViewById(R.id.Btngenerador);
+        btnGenerarPermiso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Mandamos a llamar a la clase GenerarPermisoFragment
+                GenerarPermisoFragment generarPermisoFragment = new GenerarPermisoFragment();
+                //Reemplazamos el fragmento
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, generarPermisoFragment).commit();
+            }
+        });
 
         return view;
     }
