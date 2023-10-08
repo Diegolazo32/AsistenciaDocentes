@@ -48,18 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivPetPhoto"
-        android:layout_width="263dp"
-        android:layout_height="225dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/msj_isss" />
-
-    <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/Add_Img"
         android:layout_width="72dp"
         android:layout_height="78dp"
         android:layout_marginTop="16dp"
@@ -70,14 +59,24 @@
         app:srcCompat="@drawable/baseline_camera_alt_24" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/Save_Img"
         android:layout_width="73dp"
         android:layout_height="72dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivPetPhoto"
-        app:layout_constraintHorizontal_bias="0.48"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/Add_Img"
         app:srcCompat="@drawable/baseline_save_24" />
+
+    <ListView
+        android:id="@+id/list_imgs"
+        android:layout_width="268dp"
+        android:layout_height="218dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msj_isss" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

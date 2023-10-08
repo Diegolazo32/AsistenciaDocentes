@@ -68,24 +68,21 @@ public class AdapterDocente extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            
+            showbottomdialog(docente);
             }
         });
-
         return view;
-
     }
     private void showbottomdialog(Usuario docente){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.adddocente);
+        dialog.setContentView(R.layout.editdocente);
         Switch Estado = dialog.findViewById(R.id.edit_switch);
         EditText nombre = dialog.findViewById(R.id.edit_txt_nom);
         EditText titulo = dialog.findViewById(R.id.edit_txt_titulo);
         Button dias = dialog.findViewById(R.id.edit_btn_dia);
         Button guardar = dialog.findViewById(R.id.guardar);
         Button eliminar = dialog.findViewById(R.id.delete);
-
     }
     private void mostrarTimePickerDialog(final TextView textView) {
         Calendar cal = Calendar.getInstance();
