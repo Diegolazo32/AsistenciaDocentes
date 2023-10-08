@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/reversebg"
     tools:context=".Controladores.Controladores.GenerarPermisoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,9 @@
             android:layout_width="370dp"
             android:layout_height="128dp"
             android:layout_marginTop="32dp"
-            android:hint="Descripcion"
+            android:hint="Describa su incapacidad"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:textSize="18sp"
@@ -30,7 +33,7 @@
             android:layout_width="33dp"
             android:layout_height="36dp"
             android:layout_marginTop="32dp"
-            android:src="@drawable/ic_baseline_clear_24"
+            android:src="@drawable/baseline_arrow_back_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toEndOf="@+id/textView"
@@ -67,6 +70,7 @@
             android:layout_marginTop="28dp"
             android:text="Fecha de fin"
             android:textSize="16dp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.783"
@@ -77,11 +81,11 @@
             android:id="@+id/textView"
             android:layout_width="304dp"
             android:layout_height="46dp"
-
             android:layout_marginTop="32dp"
             android:text="Generar Permiso"
             android:textSize="36dp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.112"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,11 +97,11 @@
             android:layout_height="62dp"
             android:layout_marginTop="16dp"
             android:entries="@array/categorias"
-            android:autofillHints="Ingrese el tipo de permiso"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.305"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Msj_1" />
+
 
         <TextView
             android:id="@+id/Msj_1"
@@ -106,6 +110,7 @@
             android:layout_marginTop="36dp"
             android:text="¿Cual es el motivo de su permiso?"
             android:textSize="16dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:textColor="@color/white"
             android:text="¿Cuantos dias desea solicitar?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.033"
@@ -153,6 +159,7 @@
             android:layout_marginTop="28dp"
             android:text="Fecha de inicio"
             android:textSize="16dp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
@@ -164,6 +171,7 @@
             android:layout_width="173dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
+            android:textColor="@color/white"
             android:text="¿Con incapacidad del ISSS?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.031"

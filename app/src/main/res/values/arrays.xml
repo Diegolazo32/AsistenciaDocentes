@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="categorias">
+        <item>Ingrese el Motivo del permiso</item>
         <item>Enfermedad</item>
         <item>Maternidad/Paternidad</item>
         <item>Fallecimiento de pariente</item>
