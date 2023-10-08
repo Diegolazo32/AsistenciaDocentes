@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -181,7 +182,6 @@ public class DocenteFragment extends Fragment {
         timePickerDialog.show();
     }
     private void showBottomDialog() {
-
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.adddocente);
@@ -204,7 +204,6 @@ public class DocenteFragment extends Fragment {
         dias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Limpiamos los arraylist de horas
                 txtdias.setText(diasSeleccionados.toString());
                 txtentrada.setText(horasEntrada.toString());
                 txtsalida.setText(horasSalida.toString());
@@ -215,6 +214,8 @@ public class DocenteFragment extends Fragment {
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View mainView = getActivity().getWindow().getDecorView();
+                mainView.setBackgroundResource(android.R.color.transparent);
                 dialog.dismiss();
             }
         });

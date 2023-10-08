@@ -83,8 +83,6 @@ public class AdapterDocente extends BaseAdapter {
         EditText nombre = dialog.findViewById(R.id.edit_txt_nom);
         EditText titulo = dialog.findViewById(R.id.edit_txt_titulo);
         Button dias = dialog.findViewById(R.id.edit_btn_dia);
-        Button entrada = dialog.findViewById(R.id.edit_btn_entrada);
-        Button salida = dialog.findViewById(R.id.edit_btn_salida);
         Button guardar = dialog.findViewById(R.id.guardar);
         Button eliminar = dialog.findViewById(R.id.delete);
 
