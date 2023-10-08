@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,29 +64,33 @@ public class AdapterDocente extends BaseAdapter {
         titulo.setText(docente.Titulo);
         codigo.setText(docente.Codigo);
         String personPhotoUrl = docente.PP;
-        Glide.with(context).load(personPhotoUrl).into(PP);
+        PP.setDrawingCacheEnabled(true);
+        PP.buildDrawingCache();
+        Bitmap bitmap = PP.getDrawingCache();
+        Glide.with(context)
+                .load(personPhotoUrl)
+                .fitCenter()  // Ajusta el tamaño de la imagen al tamaño de la ImageView manteniendo la proporción
+                .into(PP);
+
         //Mostramos cuando se selecciona un docente
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            
+            showbottomdialog(docente,bitmap);
             }
         });
-
         return view;
-
     }
-    private void showbottomdialog(Usuario docente){
+    private void showbottomdialog(Usuario docente,Bitmap bitmap) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.adddocente);
+        dialog.setContentView(R.layout.editdocente);
         Switch Estado = dialog.findViewById(R.id.edit_switch);
         EditText nombre = dialog.findViewById(R.id.edit_txt_nom);
         EditText titulo = dialog.findViewById(R.id.edit_txt_titulo);
         Button dias = dialog.findViewById(R.id.edit_btn_dia);
         Button guardar = dialog.findViewById(R.id.guardar);
         Button eliminar = dialog.findViewById(R.id.delete);
-
     }
     private void mostrarTimePickerDialog(final TextView textView) {
         Calendar cal = Calendar.getInstance();

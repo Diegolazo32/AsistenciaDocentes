@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
                                                         finish();
                                                     } else {
                                                         // Si falla la autenticación muestra alerta
+                                                        FirebaseAuth.getInstance().signOut();
+                                                        // Se cierra la sesión de Google
+                                                        mGoogleSignInClient.signOut();
                                                         AlertaEmail();
                                                     }
                                                 }
@@ -144,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // El usuario ha iniciado sesión exitosamente
                             // Validamos que el email termine en @ues.edu.sv
                             if (user.getEmail().endsWith("@ues.edu.sv")) {
                                 String email = user.getEmail();
@@ -157,20 +159,32 @@ public class MainActivity extends AppCompatActivity {
                                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                                 codigoUsuario = snapshot.getKey();
                                             }
-                                            //Enviamos el codigo del usuario a la siguiente actividad
+                                            // Enviamos el codigo del usuario a la siguiente actividad
                                             Intent intent = new Intent(MainActivity.this, Home.class);
                                             intent.putExtra("codigoUsuario", codigoUsuario);
                                             startActivity(intent);
                                             finish();
                                         } else {
+                                            //Se elimina de usuarios de firebase
+                                            user.delete();
+                                            FirebaseAuth.getInstance().signOut();
+                                            mGoogleSignInClient.signOut();
                                             AlertaEmail();
                                         }
                                     }
+
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                         // Manejar el error de la consulta
+                                        AlertaEmail();
                                     }
                                 });
+                            } else {
+                                // Si el correo no cumple con la condición
+                                AlertaEmail();
+                                FirebaseAuth.getInstance().signOut();
+                                // Se cierra la sesión de Google
+                                mGoogleSignInClient.signOut();
                             }
                         } else {
                             // Si falla la autenticación
@@ -182,12 +196,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     private void handleAccountSelection() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent = new Intent(MainActivity.this, Home.class);
             startActivity(intent);
             finish();
+        }else {
+            FirebaseAuth.getInstance().signOut();
+            // Se cierra la sesión de Google
+            mGoogleSignInClient.signOut();
         }
     }
     private void AlertaEmail() {
@@ -204,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Salir", (dialog, which) -> {
                     FirebaseUser user = mAuth.getCurrentUser();
+                    assert user != null;
                     user.delete();
                     FirebaseAuth.getInstance().signOut();
                     mGoogleSignInClient.signOut();

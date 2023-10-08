@@ -236,7 +236,6 @@ public class DocenteFragment extends Fragment {
                         // Incrementar el ID
                         int nuevoID = maxID + 1;
                         String nuevoIDFormateado = String.format("%04d", nuevoID);
-
                         // Guardar el docente con el nuevo ID
                         String nuevoIDString = String.valueOf(nuevoIDFormateado);
                         Usuario usuario = new Usuario(nombre.getText().toString(), titulo.getText().toString(), correo.getText().toString(), txtdias.getText().toString(), txtentrada.getText().toString(), txtsalida.getText().toString(), true, "Docente", "https://firebasestorage.googleapis.com/v0/b/asistencia-docente-1e9f0.appspot.com/o/Imagenes%2Fperfil.png?alt=media&token=8b5b8b1a-5b0a-4b0a-9b0a-5b0a4b0a9b0a", nuevoIDString);
