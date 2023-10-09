@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                                             FirebaseAuth.getInstance().signOut();
                                             mGoogleSignInClient.signOut();
                                             AlertaEmail();
-
                                         }
                                     }
                                     @Override
