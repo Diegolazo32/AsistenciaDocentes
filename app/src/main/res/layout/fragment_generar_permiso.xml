@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/reversebg"
     tools:context=".Controladores.Controladores.GenerarPermisoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,7 +122,6 @@
             android:layout_width="176dp"
             android:layout_height="62dp"
             android:layout_marginTop="52dp"
-            android:backgroundTint="@color/green"
             android:drawableLeft="@drawable/baseline_edit_calendar_24"
             android:text="Seleccione las fechas"
             app:layout_constraintEnd_toEndOf="parent"
@@ -183,8 +181,8 @@
 
         <ImageButton
             android:id="@+id/Btn_isss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="61dp"
+            android:layout_height="59dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/translucid"
             android:src="@drawable/isss"

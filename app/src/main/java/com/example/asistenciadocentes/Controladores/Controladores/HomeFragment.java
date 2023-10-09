@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
         codigoUsuario = getActivity().getIntent().getStringExtra("codigoUsuario");
         if (codigoUsuario != null){
             codigo.setText(codigoUsuario);
+            ObtenerInfo(codigoUsuario);
         }else {
             //Obtenemos el codigo del usuario de la autenticacion
             mAuth = FirebaseAuth.getInstance();
@@ -59,6 +61,7 @@ public class HomeFragment extends Fragment {
                             codigoUsuario = snapshot.getKey();
                         }
                         codigo.setText(codigoUsuario);
+                        ObtenerInfo(codigoUsuario);
                     }
                 }
                 @Override
@@ -66,6 +69,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+
         try {
             QRCodeWriter writer = new QRCodeWriter();
             BitMatrix bitMatrix = writer.encode("https://www.youtube.com/watch?v=XE5GO-fMmDQ&t=240s", BarcodeFormat.QR_CODE, 290, 339);
@@ -99,6 +103,23 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+    private void ObtenerInfo(String Codigo){
+        DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios").child(Codigo);
+        referencia.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String nombre = dataSnapshot.child("Nombre").getValue().toString();
+                String titulo = dataSnapshot.child("Titulo").getValue().toString();
+                TextView name = getView().findViewById(R.id.nom_docente);
+                TextView title = getView().findViewById(R.id.titulo_docente);
+                name.setText(nombre);
+                title.setText(titulo);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+
     }
 
 }

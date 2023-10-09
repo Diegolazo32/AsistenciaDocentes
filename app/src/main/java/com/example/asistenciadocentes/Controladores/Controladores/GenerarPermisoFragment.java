@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,12 +31,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.asistenciadocentes.Controladores.Adaptadores.ImageListAdapter;
+import com.example.asistenciadocentes.Controladores.DataBase.Permisos;
+import com.example.asistenciadocentes.Controladores.DataBase.Usuario;
 import com.example.asistenciadocentes.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.TotpSecret;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,6 +56,8 @@ public class GenerarPermisoFragment extends Fragment {
     private TextView endDateTextView;
     private TextView diasDiferenciaTextView;
     private Calendar calendar;
+    FirebaseAuth mAuth;
+    DatabaseReference referencia;
     String codigoUsuario;
     private DatePickerDialog.OnDateSetListener startDateListener, endDateListener;
 
@@ -60,7 +70,7 @@ public class GenerarPermisoFragment extends Fragment {
         if (bundle != null) {
             codigoUsuario = bundle.getString("codigoUsuario");
         }
-
+        referencia = FirebaseDatabase.getInstance().getReference();
         View view = inflater.inflate(R.layout.fragment_generar_permiso, container, false);
         startDateTextView = view.findViewById(R.id.txt_date_ini);
         endDateTextView = view.findViewById(R.id.txt_date_fin);
@@ -71,6 +81,10 @@ public class GenerarPermisoFragment extends Fragment {
         spTipo.setAdapter(adapter);
         Button selectDatesButton = view.findViewById(R.id.Btn_fechas);
         ImageButton fotoisss = view.findViewById(R.id.Btn_isss);
+        TextView difdias = view.findViewById(R.id.txt_diferencias_dias);
+        TextView fechaini = view.findViewById(R.id.txt_date_ini);
+        TextView fechafin = view.findViewById(R.id.txt_date_fin);
+        EditText descp = view.findViewById(R.id.isss_descp);
 
         ImageView enviar = view.findViewById(R.id.edit_sent);
         ImageView cancelar = view.findViewById(R.id.cancelButton2);
@@ -114,6 +128,52 @@ public class GenerarPermisoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Enviar datos al servidor firebase
+                String tipo = spTipo.getSelectedItem().toString();
+                String fecha_ini = fechaini.getText().toString();
+                String fecha_fin = fechafin.getText().toString();
+                String dias = difdias.getText().toString();
+                String descripcion = descp.getText().toString();
+                String fecha_creacion = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                //Obtenemos las uris de todas las imagenes de la lista
+                String imagenes = "";
+                for (Uri uri : uris) {
+                    imagenes += uri.toString() + ",";
+                }
+
+                if (tipo.isEmpty() || fecha_ini.isEmpty() || fecha_fin.isEmpty() || dias.isEmpty() || descripcion.isEmpty()||imagenes.isEmpty()||codigoUsuario.isEmpty()) {
+                    Toast.makeText(getContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Enviar datos al servidor firebase
+                    String finalImagenes = imagenes;
+                    referencia.child("tb_permisos").get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult().getValue() != null) {
+                            mAuth = FirebaseAuth.getInstance();
+                            HashMap<String, Object> data = (HashMap<String, Object>) task.getResult().getValue();
+                            int maxID = -1;
+                            for (String key : data.keySet()) {
+                                int currentID = Integer.parseInt(key);
+                                if (currentID > maxID) {
+                                    maxID = currentID;
+                                }
+                            }
+                            // Incrementar el ID
+                            int nuevoID = maxID + 1;
+                            String nuevoIDFormateado = String.format("%04d", nuevoID);
+                            // Guardar el docente con el nuevo ID
+                            String nuevoIDString = String.valueOf(nuevoIDFormateado);
+                            Permisos permiso = new Permisos(nuevoIDString, tipo,descripcion,fecha_creacion,fecha_ini,fecha_fin, finalImagenes,"Pendiente",codigoUsuario);
+                            referencia.child("tb_permisos").child(nuevoIDString).setValue(permiso);
+                            Toast.makeText(getContext(), "Permiso enviado a revision", Toast.LENGTH_SHORT).show();
+                            uris.clear();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("codigoUsuario", codigoUsuario);
+                            HomeFragment homeFragment = new HomeFragment();
+                            homeFragment.setArguments(bundle);
+                            getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+                        }
+                    });
+
+                }
 
             }
         });
@@ -148,13 +208,18 @@ public class GenerarPermisoFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         endDateTextView.setText(sdf.format(calendar.getTime()));
         // Calcular la diferencia de días
-        long startDateInMillis = calendar.getTimeInMillis();
-        Calendar endCalendar = Calendar.getInstance();
-        long endDateInMillis = endCalendar.getTimeInMillis();
-        long differenceInMilliseconds = startDateInMillis-endDateInMillis;
-        long differenceInDays = differenceInMilliseconds / (24 * 60 * 60 * 1000);
-        diasDiferenciaTextView.setText(differenceInDays+" día/s ausente");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        try {
+            Date startDate = sdfDate.parse(startDateTextView.getText().toString());
+            Date endDate = sdfDate.parse(endDateTextView.getText().toString());
+            long differenceInMilliseconds = endDate.getTime() - startDate.getTime();
+            long differenceInDays = differenceInMilliseconds / (24 * 60 * 60 * 1000);
+            diasDiferenciaTextView.setText(differenceInDays + " día/s ausente");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     private void showFotoDialog(){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
