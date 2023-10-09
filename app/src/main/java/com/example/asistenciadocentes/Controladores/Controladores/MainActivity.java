@@ -170,11 +170,9 @@ public class MainActivity extends AppCompatActivity {
                                             FirebaseAuth.getInstance().signOut();
                                             mGoogleSignInClient.signOut();
                                             AlertaEmail();
+
                                         }
                                     }
-
-
-
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                         // Manejar el error de la consulta
