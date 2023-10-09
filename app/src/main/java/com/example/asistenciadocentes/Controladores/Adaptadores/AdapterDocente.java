@@ -77,6 +77,7 @@ public class AdapterDocente extends BaseAdapter {
             @Override
             public void onClick(View view) {
             showbottomdialog(docente,bitmap);
+
             }
         });
         return view;

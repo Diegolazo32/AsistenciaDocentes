@@ -55,10 +55,12 @@ public class GenerarPermisoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             codigoUsuario = bundle.getString("codigoUsuario");
         }
+
         View view = inflater.inflate(R.layout.fragment_generar_permiso, container, false);
         startDateTextView = view.findViewById(R.id.txt_date_ini);
         endDateTextView = view.findViewById(R.id.txt_date_fin);
@@ -69,8 +71,10 @@ public class GenerarPermisoFragment extends Fragment {
         spTipo.setAdapter(adapter);
         Button selectDatesButton = view.findViewById(R.id.Btn_fechas);
         ImageButton fotoisss = view.findViewById(R.id.Btn_isss);
+
         ImageView enviar = view.findViewById(R.id.edit_sent);
         ImageView cancelar = view.findViewById(R.id.cancelButton2);
+
         calendar = Calendar.getInstance();
         startDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -93,8 +97,10 @@ public class GenerarPermisoFragment extends Fragment {
         fotoisss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Limpiamos la lista de URIs
                 uris.clear();
+
                 showFotoDialog();
             }
         });
