@@ -76,7 +76,7 @@ public class GenerarPermisoFragment extends Fragment {
         endDateTextView = view.findViewById(R.id.txt_date_fin);
         diasDiferenciaTextView = view.findViewById(R.id.txt_diferencias_dias);
         Spinner spTipo = view.findViewById(R.id.sp_tipo);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.categorias, R.layout.sp_vista);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.categorias, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTipo.setAdapter(adapter);
         Button selectDatesButton = view.findViewById(R.id.Btn_fechas);

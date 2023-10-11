@@ -5,204 +5,217 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Controladores.Controladores.GenerarPermisoFragment">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbarAlwaysDrawVerticalTrack="true">
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/isss_descp"
-            android:layout_width="390dp"
-            android:layout_height="82dp"
-            android:layout_marginTop="32dp"
-            android:hint="Describa su incapacidad"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.414"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Msj_5" />
-
-        <ImageView
-            android:id="@+id/cancelButton2"
-            android:layout_width="33dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/baseline_arrow_back_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txt_date_ini"
-            android:layout_width="113dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="64dp"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.082"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
-
-        <TextView
-            android:id="@+id/txt_date_fin"
-            android:layout_width="113dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="64dp"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.815"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
-
-        <TextView
-            android:id="@+id/msj_4"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_incapa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Fecha de fin"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.783"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="304dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="32dp"
-            android:text="Generar Permiso"
-            android:textSize="36dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.112"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarAlwaysDrawVerticalTrack="true">
 
-        <Spinner
-            android:id="@+id/sp_tipo"
-            android:layout_width="375dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="16dp"
-            android:entries="@array/categorias"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.305"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Msj_1" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/isss_descp"
+                    android:layout_width="390dp"
+                    android:layout_height="82dp"
+                    android:layout_marginTop="32dp"
+                    android:hint="Describa su incapacidad"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.414"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Msj_5" />
 
+                <ImageView
+                    android:id="@+id/cancelButton2"
+                    android:layout_width="33dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/baseline_arrow_back_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Msj_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="¿Cual es el motivo de su permiso?"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <TextView
+                    android:id="@+id/txt_date_ini"
+                    android:layout_width="113dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="64dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.082"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
 
-        <Button
-            android:id="@+id/Btn_fechas"
-            android:layout_width="176dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="52dp"
-            android:drawableLeft="@drawable/baseline_edit_calendar_24"
-            android:text="Seleccione las fechas"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+                <TextView
+                    android:id="@+id/txt_date_fin"
+                    android:layout_width="113dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="64dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.815"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
 
-        <TextView
-            android:id="@+id/Msj_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/white"
-            android:text="¿Cuantos dias desea solicitar?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.033"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+                <TextView
+                    android:id="@+id/msj_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="Fecha de fin"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.783"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
 
-        <TextView
-            android:id="@+id/txt_diferencias_dias"
-            android:layout_width="142dp"
-            android:layout_height="37dp"
-            android:layout_marginTop="64dp"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Btn_fechas"
-            app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="304dp"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Generar Permiso"
+                    android:textSize="36dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.112"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/msj_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="Fecha de inicio"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.082"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
-
-        <TextView
-            android:id="@+id/Msj_5"
-            android:layout_width="173dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/white"
-            android:text="¿Con incapacidad del ISSS?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.031"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date_ini" />
-
-        <ImageButton
-            android:id="@+id/Btn_isss"
-            android:layout_width="61dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/translucid"
-            android:src="@drawable/isss"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.14"
-            app:layout_constraintStart_toEndOf="@+id/Msj_5"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date_fin" />
-
-        <ImageView
-            android:id="@+id/edit_sent"
-            android:layout_width="54dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="12dp"
-            android:src="@drawable/baseline_send_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/isss_descp" />
+                <Spinner
+                    android:id="@+id/sp_tipo"
+                    android:layout_width="375dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="16dp"
+                    android:entries="@array/categorias"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.305"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Msj_1" />
 
 
+                <TextView
+                    android:id="@+id/Msj_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp"
+                    android:text="¿Cual es el motivo de su permiso?"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.07"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <Button
+                    android:id="@+id/Btn_fechas"
+                    android:layout_width="176dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="52dp"
+                    android:drawableLeft="@drawable/baseline_edit_calendar_24"
+                    android:text="Seleccione las fechas"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.046"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+
+                <TextView
+                    android:id="@+id/Msj_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Dias a solicitar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.033"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+
+                <TextView
+                    android:id="@+id/txt_diferencias_dias"
+                    android:layout_width="142dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="64dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/Btn_fechas"
+                    app:layout_constraintTop_toBottomOf="@+id/sp_tipo" />
+
+                <TextView
+                    android:id="@+id/msj_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="Fecha de inicio"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.082"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Btn_fechas" />
+
+                <TextView
+                    android:id="@+id/Msj_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="24dp"
+                    android:text="¿Incapacidad del ISSS?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.059"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_date_ini" />
+
+                <ImageButton
+                    android:id="@+id/Btn_isss"
+                    android:layout_width="61dp"
+                    android:layout_height="59dp"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/translucid"
+                    android:src="@drawable/isss"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.14"
+                    app:layout_constraintStart_toEndOf="@+id/Msj_5"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_date_fin" />
+
+                <ImageView
+                    android:id="@+id/edit_sent"
+                    android:layout_width="54dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/baseline_send_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.915"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/isss_descp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
