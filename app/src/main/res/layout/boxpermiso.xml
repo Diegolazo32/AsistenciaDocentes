@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+            <TextView
+                android:id="@+id/solicitud_d"
+                android:layout_width="299dp"
+                android:layout_height="27dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="13dp"
+                android:gravity="top"
+                android:textSize="20sp"
+                android:text="Solicitud de:"
+                android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/Perm_nombre_comp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="47dp"
+                android:text="Nombre Completo:"
+                android:textSize="18sp"
+                android:textColor="#FF0000"
+                android:gravity="top"
+                />
+            <TextView
+                android:id="@+id/codigo_asig"
+                android:layout_width="167dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="75dp"
+                android:text="Codigo Asignado"
+                android:textSize="16sp"
+                android:textColor="#757171"
+                android:gravity="top" />
+
+            <TextView
+                android:id="@+id/motivo_de_i"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="100dp"
+                android:gravity="top"
+                android:text="Motivo de Incapacidad"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/fecha_permiso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="124dp"
+                android:text="Fechas a estar de baja"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:gravity="top" />
+
+
+
+
+            <!-- Auto layout, variables, and unit scale are not yet supported -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_baja"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="195dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="34dp"
+                app:srcCompat="@drawable/pp"
+                />
+
+            <Button
+                android:id="@+id/Btn_Constancias"
+                android:layout_width="160dp"
+                android:layout_height="37dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="151dp"
+                android:text="Ver Constancia/s"
+                android:textColor="@color/black"
+                android:backgroundTint="#CBDEFC"/>
+
+            <Button
+                android:id="@+id/Btn_Aceptar_sol"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="41dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="195dp"
+                android:text="Aceptar"
+                android:backgroundTint="#A4D653"/>
+
+            <Button
+                android:id="@+id/Btn_Denegar_sol"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="195dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="195dp"
+                android:text="Denegar"
+                android:backgroundTint="#F95757"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

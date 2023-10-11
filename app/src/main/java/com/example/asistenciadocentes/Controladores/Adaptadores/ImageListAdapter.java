@@ -31,13 +31,10 @@ public class ImageListAdapter extends ArrayAdapter<Uri> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             row = inflater.inflate(mResource, parent, false);
         }
-
         ImageView imageView = row.findViewById(R.id.img_obtenida);
         Uri uri = getItem(position);
-
         // Carga la imagen en el ImageView
         imageView.setImageURI(uri);
-
         return row;
     }
 }
