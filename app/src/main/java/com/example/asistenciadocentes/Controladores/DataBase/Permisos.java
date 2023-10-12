@@ -13,6 +13,8 @@ public class Permisos {
   public String estado;
   public String id_usuario;
 
+    public Permisos() {
+        }
     public Permisos(String id_permiso, String tipo, String descripcion, String fecha_creacion, String fecha_incio, String fecha_fin, String imagen, String estado, String id_usuario) {
         this.id_permiso = id_permiso;
         this.tipo = tipo;

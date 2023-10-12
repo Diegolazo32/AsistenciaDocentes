@@ -46,7 +46,6 @@ public class HomeFragment extends Fragment {
         codigoUsuario = getActivity().getIntent().getStringExtra("codigoUsuario");
         if (codigoUsuario != null){
             codigo.setText(codigoUsuario);
-            ObtenerInfo(codigoUsuario);
         }else {
             //Obtenemos el codigo del usuario de la autenticacion
             mAuth = FirebaseAuth.getInstance();

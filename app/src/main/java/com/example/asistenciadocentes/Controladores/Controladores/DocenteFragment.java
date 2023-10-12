@@ -44,7 +44,6 @@ public class DocenteFragment extends Fragment {
     ArrayList<String> diasSeleccionados = new ArrayList<>();
     ArrayList<String> horasEntrada = new ArrayList<>();
     ArrayList<String> horasSalida = new ArrayList<>();
-
     public ArrayList<Usuario> listadeDocentes;
     public AdapterDocente adapter;
     FirebaseAuth mAuth;
@@ -63,7 +62,6 @@ public class DocenteFragment extends Fragment {
         // Conectamos la base de datos
         referencia = FirebaseDatabase.getInstance().getReference();
         listvdocente = view.findViewById(R.id.list_docentes); // Asignación de 'listvdocente'
-
         btnaggDocente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,10 +72,8 @@ public class DocenteFragment extends Fragment {
                 }
             }
         });
-
         return view; // Retorna la vista inflada.
     }
-
     public void Cargar_Docente() {
         listadeDocentes = new ArrayList<Usuario>();
         referencia.child("tb_usuarios").get().addOnCompleteListener(task -> {
@@ -96,7 +92,6 @@ public class DocenteFragment extends Fragment {
                     docente.Estado = Boolean.parseBoolean(data2.get("Estado").toString());
                     docente.PP = data2.get("PP").toString();
                     docente.Codigo = data2.get("Codigo").toString();
-
                     // Agregar el docente a la lista
                     listadeDocentes.add(docente);
                 }
@@ -119,6 +114,8 @@ public class DocenteFragment extends Fragment {
                 } else {
                     horasEntrada.remove(which);
                     horasSalida.remove(which);
+                    horasEntrada.clear();
+                    horasSalida.clear();
                     textView2.setText(horasEntrada.toString());
                     textView3.setText(horasSalida.toString());
                 }
@@ -156,7 +153,6 @@ public class DocenteFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         int hora = cal.get(Calendar.HOUR_OF_DAY);
         int minuto = cal.get(Calendar.MINUTE);
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -170,14 +166,11 @@ public class DocenteFragment extends Fragment {
                 } else {
                     amPm = "AM";
                 }
-
                 String horaSeleccionada = String.format(Locale.getDefault(), "%02d:%02d %s", hourOfDay, minute, amPm);
-
                 // Guardar la hora seleccionada en el ArrayList
                 listaHoras.add(indexDia, horaSeleccionada);
             }
         }, hora, minuto, false);
-
         timePickerDialog.setTitle(title);
         timePickerDialog.show();
     }
@@ -185,7 +178,6 @@ public class DocenteFragment extends Fragment {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.adddocente);
-
         EditText nombre = dialog.findViewById(R.id.txt_nom);
         EditText correo = dialog.findViewById(R.id.txt_correo);
         EditText titulo = dialog.findViewById(R.id.txt_titulo);
@@ -195,7 +187,6 @@ public class DocenteFragment extends Fragment {
         TextView txtentrada = dialog.findViewById(R.id.txt_entrada);
         TextView txtsalida = dialog.findViewById(R.id.txt_salida);
         TextView txtdias = dialog.findViewById(R.id.txt_diastra);
-
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -210,7 +201,6 @@ public class DocenteFragment extends Fragment {
                 mostrarAlertDialogDiasTrabajados(txtdias, txtentrada, txtsalida);
             }
         });
-
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,6 +212,30 @@ public class DocenteFragment extends Fragment {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diasSeleccionados.clear();
+                horasEntrada.clear();
+                horasSalida.clear();
+                String nombreText = nombre.getText().toString();
+                String tituloText = titulo.getText().toString();
+                String correoText = correo.getText().toString();
+                String diasText = txtdias.getText().toString();
+                String entradaText = txtentrada.getText().toString();
+                String salidaText = txtsalida.getText().toString();
+                // Validación de campos obligatorios
+                if (nombreText.isEmpty() || tituloText.isEmpty() || correoText.isEmpty() || diasText.isEmpty() || entradaText.isEmpty() || salidaText.isEmpty()) {
+                    Toast.makeText(getContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Validación de formato de correo electrónico
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(correoText).matches()) {
+                    Toast.makeText(getContext(), "Correo electrónico inválido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Validación de días trabajados
+                if (diasSeleccionados.isEmpty()) {
+                    Toast.makeText(getContext(), "Por favor selecciona al menos un día trabajado", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 referencia.child("tb_usuarios").get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult().getValue() != null) {
                         mAuth = FirebaseAuth.getInstance();
@@ -233,7 +247,6 @@ public class DocenteFragment extends Fragment {
                                 maxID = currentID;
                             }
                         }
-                        // Incrementar el ID
                         int nuevoID = maxID + 1;
                         String nuevoIDFormateado = String.format("%04d", nuevoID);
                         // Guardar el docente con el nuevo ID
@@ -242,6 +255,8 @@ public class DocenteFragment extends Fragment {
                         referencia.child("tb_usuarios").child(nuevoIDString).setValue(usuario);
                         Toast.makeText(getContext(), "Docente agregado correctamente", Toast.LENGTH_SHORT).show();
                         mAuth.createUserWithEmailAndPassword(correo.getText().toString(), "Minerva.23");
+                        //Hacemos un update a la listview
+                        Cargar_Docente();
                         dialog.dismiss();
                     }
                 });

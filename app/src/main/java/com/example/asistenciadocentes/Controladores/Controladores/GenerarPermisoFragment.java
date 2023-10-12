@@ -11,6 +11,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,30 +28,33 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.fragment.app.FragmentActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import com.google.firebase.database.ValueEventListener;
+
 
 import com.example.asistenciadocentes.Controladores.Adaptadores.ImageListAdapter;
-import com.example.asistenciadocentes.Controladores.DataBase.Permisos;
-import com.example.asistenciadocentes.Controladores.DataBase.Usuario;
 import com.example.asistenciadocentes.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.TotpSecret;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GenerarPermisoFragment extends Fragment {
 
     private TextView startDateTextView;
+    AtomicReference<String> imagenesFinales = new AtomicReference<>("");
     private static final int GALLERY_REQUEST_CODE = 1001;
     private List<Uri> uris = new ArrayList<>();
     private ListView listaImagenes;
@@ -58,7 +63,10 @@ public class GenerarPermisoFragment extends Fragment {
     private Calendar calendar;
     FirebaseAuth mAuth;
     DatabaseReference referencia;
+
     String codigoUsuario;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     private DatePickerDialog.OnDateSetListener startDateListener, endDateListener;
 
     @SuppressLint("MissingInflatedId")
@@ -124,57 +132,74 @@ public class GenerarPermisoFragment extends Fragment {
                 showDatePickerDialog(startDateListener);
             }
         });
+
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Enviar datos al servidor firebase
+            public void onClick(View view) {
                 String tipo = spTipo.getSelectedItem().toString();
                 String fecha_ini = fechaini.getText().toString();
                 String fecha_fin = fechafin.getText().toString();
                 String dias = difdias.getText().toString();
                 String descripcion = descp.getText().toString();
                 String fecha_creacion = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                //Obtenemos las uris de todas las imagenes de la lista
-                String imagenes = "";
-                for (Uri uri : uris) {
-                    imagenes += uri.toString() + ",";
-                }
 
-                if (tipo.isEmpty() || fecha_ini.isEmpty() || fecha_fin.isEmpty() || dias.isEmpty() || descripcion.isEmpty()||imagenes.isEmpty()||codigoUsuario.isEmpty()) {
+                if (tipo.isEmpty() || fecha_ini.isEmpty() || fecha_fin.isEmpty() || dias.isEmpty() || descripcion.isEmpty() || uris.isEmpty() || codigoUsuario.isEmpty()) {
                     Toast.makeText(getContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
                 } else {
-                    //Enviar datos al servidor firebase
-                    String finalImagenes = imagenes;
-                    referencia.child("tb_permisos").get().addOnCompleteListener(task -> {
-                        if (task.isSuccessful() && task.getResult().getValue() != null) {
-                            mAuth = FirebaseAuth.getInstance();
-                            HashMap<String, Object> data = (HashMap<String, Object>) task.getResult().getValue();
-                            int maxID = -1;
-                            for (String key : data.keySet()) {
-                                int currentID = Integer.parseInt(key);
-                                if (currentID > maxID) {
-                                    maxID = currentID;
-                                }
-                            }
-                            // Incrementar el ID
-                            int nuevoID = maxID + 1;
-                            String nuevoIDFormateado = String.format("%04d", nuevoID);
-                            // Guardar el docente con el nuevo ID
-                            String nuevoIDString = String.valueOf(nuevoIDFormateado);
-                            Permisos permiso = new Permisos(nuevoIDString, tipo,descripcion,fecha_creacion,fecha_ini,fecha_fin, finalImagenes,"Pendiente",codigoUsuario);
-                            referencia.child("tb_permisos").child(nuevoIDString).setValue(permiso);
-                            Toast.makeText(getContext(), "Permiso enviado a revision", Toast.LENGTH_SHORT).show();
-                            uris.clear();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("codigoUsuario", codigoUsuario);
-                            HomeFragment homeFragment = new HomeFragment();
-                            homeFragment.setArguments(bundle);
-                            getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
-                        }
-                    });
+                    List<String> listaUrls = new ArrayList<>();
 
+                    for (Uri uri2 : uris) {
+                        StorageReference riversRef = storageRef.child("images/" + uri2.getLastPathSegment());
+                        riversRef.putFile(uri2)
+                                .addOnSuccessListener(taskSnapshot -> {
+                                    riversRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                        String imageUrl = uri.toString();
+                                        listaUrls.add(imageUrl);
+                                        if (listaUrls.size() == uris.size()) {
+                                            referencia.child("tb_permisos").orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    String lastKey = "";
+                                                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                                        lastKey = childSnapshot.getKey();
+                                                    }
+                                                    // Generar el nuevo ID
+                                                    int nuevoID = Integer.parseInt(lastKey) + 1;
+                                                    String nuevoIDFormateado = String.format("%04d", nuevoID);
+                                                    String imagenesFinales = TextUtils.join(",", listaUrls);
+                                                    // Guardar las URLs en la base de datos
+                                                    DatabaseReference permisosRef = referencia.child("tb_permisos").child(nuevoIDFormateado);
+                                                    permisosRef.child("id_permiso").setValue(nuevoIDFormateado);
+                                                    permisosRef.child("tipo").setValue(tipo);
+                                                    permisosRef.child("descripcion").setValue(descripcion);
+                                                    permisosRef.child("fecha_creacion").setValue(fecha_creacion);
+                                                    permisosRef.child("fecha_incio").setValue(fecha_ini);
+                                                    permisosRef.child("fecha_fin").setValue(fecha_fin);
+                                                    permisosRef.child("estado").setValue("Pendiente");
+                                                    permisosRef.child("id_usuario").setValue(codigoUsuario);
+                                                    permisosRef.child("imagen").setValue(imagenesFinales);
+                                                    Toast.makeText(getContext(), "Permiso enviado a revisión", Toast.LENGTH_SHORT).show();
+                                                    uris.clear();
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString("codigoUsuario", codigoUsuario);
+                                                    HomeFragment homeFragment = new HomeFragment();
+                                                    homeFragment.setArguments(bundle);
+                                                    getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+                                                }
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    // Manejar errores al obtener el último ID
+                                                    Log.e("Firebase", "Error al obtener el último ID" + databaseError.getMessage());
+                                                }
+                                            });
+                                        }
+                                    });
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("Firebase", "Error al subir la imagen" + e.getMessage());
+                                });
+                    }
                 }
-
             }
         });
         cancelar.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +283,8 @@ public class GenerarPermisoFragment extends Fragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -279,4 +306,8 @@ public class GenerarPermisoFragment extends Fragment {
         ImageListAdapter adapter = new ImageListAdapter(requireContext(), R.layout.img_vista_isss, uris);
         listaImagenes.setAdapter(adapter);
     }
+
+
+
+
 }
