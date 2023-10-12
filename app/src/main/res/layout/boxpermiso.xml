@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,8 +102,8 @@
 
             <Button
                 android:id="@+id/Btn_Constancias"
-                android:layout_width="160dp"
-                android:layout_height="37dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="16dp"
                 android:layout_alignParentTop="true"
@@ -114,22 +115,22 @@
             <Button
                 android:id="@+id/Btn_Aceptar_sol"
                 android:layout_width="wrap_content"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="41dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="195dp"
+                android:layout_marginTop="200dp"
                 android:text="Aceptar"
                 android:backgroundTint="#A4D653"/>
 
             <Button
                 android:id="@+id/Btn_Denegar_sol"
                 android:layout_width="wrap_content"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="195dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="195dp"
+                android:layout_marginTop="200dp"
                 android:text="Denegar"
                 android:backgroundTint="#F95757"/>
 

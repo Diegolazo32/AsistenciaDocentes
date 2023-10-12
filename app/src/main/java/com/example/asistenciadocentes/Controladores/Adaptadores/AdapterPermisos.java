@@ -184,7 +184,6 @@ public class AdapterPermisos extends BaseAdapter {
                     dialog.show();
                 }
             });
-
         } else if (permiso.estado.equals("Pendiente")) {
             aceptar.setVisibility(View.VISIBLE);
             rechazar.setVisibility(View.VISIBLE);
@@ -194,9 +193,6 @@ public class AdapterPermisos extends BaseAdapter {
             String date = permiso.fecha_incio+" - "+permiso.fecha_fin;
             fecha.setText(date);
             String[] imagenes = permiso.imagen.split(",");
-            //Quitamos los [] de la cadena
-            //Abrimos un modal para mostrar las imagenes
-
             Constancia.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

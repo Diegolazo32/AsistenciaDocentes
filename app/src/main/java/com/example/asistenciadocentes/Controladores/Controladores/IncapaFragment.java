@@ -6,6 +6,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +62,14 @@ public class IncapaFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     HashMap<String, Object> data2 = (HashMap<String, Object>) snapshot.getValue();
                     Permisos incapacidad = new Permisos(
+                            //Validamos que no sean nulos
                             data2.get("id_permiso").toString(),
                             data2.get("tipo").toString(),
                             data2.get("descripcion").toString(),
                             data2.get("fecha_creacion").toString(),
                             data2.get("fecha_incio").toString(),
                             data2.get("fecha_fin").toString(),
-                            data2.get("imagen").toString(),
+                            (data2.get("imagen") != null) ? data2.get("imagen").toString() : "",
                             data2.get("estado").toString(),
                             data2.get("id_usuario").toString()
                     );
@@ -78,10 +80,10 @@ public class IncapaFragment extends Fragment {
                     adapter.notifyDataSetChanged(); // Notificar al adapter que los datos han cambiado
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Manejar errores al obtener datos
+                Log.e("Error Add", databaseError.getMessage());
             }
         });
 
@@ -94,13 +96,14 @@ public class IncapaFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     HashMap<String, Object> data2 = (HashMap<String, Object>) snapshot.getValue();
                     Permisos incapacidad = new Permisos(
+
                             data2.get("id_permiso").toString(),
                             data2.get("tipo").toString(),
                             data2.get("descripcion").toString(),
                             data2.get("fecha_creacion").toString(),
                             data2.get("fecha_incio").toString(),
                             data2.get("fecha_fin").toString(),
-                            data2.get("imagen").toString(),
+                            (data2.get("imagen") != null) ? data2.get("imagen").toString() : "",
                             data2.get("estado").toString(),
                             data2.get("id_usuario").toString()
                     );
@@ -116,6 +119,7 @@ public class IncapaFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Manejar errores al obtener datos
+                Log.e("Error Add", databaseError.getMessage());
             }
         });
     }
