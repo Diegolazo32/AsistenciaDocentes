@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -68,10 +69,14 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+        //Obtenemos dia actual y hora actual
+        String dia = new java.text.SimpleDateFormat("EEEE").format(new java.util.Date());
+        String hora = new java.text.SimpleDateFormat("HH:mm:ss").format(new java.util.Date());
+        //Obtenemos el horario del usuario
 
         try {
             QRCodeWriter writer = new QRCodeWriter();
-            BitMatrix bitMatrix = writer.encode("https://www.youtube.com/watch?v=XE5GO-fMmDQ&t=240s", BarcodeFormat.QR_CODE, 290, 339);
+            BitMatrix bitMatrix = writer.encode(dia+"-"+hora+"-"+codigoUsuario, BarcodeFormat.QR_CODE, 290, 339);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

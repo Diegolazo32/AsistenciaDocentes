@@ -167,8 +167,11 @@ public class DocenteFragment extends Fragment {
                     amPm = "AM";
                 }
                 String horaSeleccionada = String.format(Locale.getDefault(), "%02d:%02d %s", hourOfDay, minute, amPm);
-                // Guardar la hora seleccionada en el ArrayList
-                listaHoras.add(indexDia, horaSeleccionada);
+                while (listaHoras.size() <= indexDia) {
+                    listaHoras.add(null);
+                }
+                listaHoras.set(indexDia, horaSeleccionada);
+                listaHoras.remove(null);
             }
         }, hora, minuto, false);
         timePickerDialog.setTitle(title);
