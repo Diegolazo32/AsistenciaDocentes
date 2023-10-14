@@ -59,10 +59,12 @@ public class AdapterDocente extends BaseAdapter {
         TextView nombre = view.findViewById(R.id.Display_Name);
         TextView titulo = view.findViewById(R.id.Display_titulo);
         TextView codigo = view.findViewById(R.id.Display_codigo);
+        TextView dias = view.findViewById(R.id.Display_dias);
         ImageView PP = view.findViewById(R.id.Display_pp);
         nombre.setText(docente.Nombre);
         titulo.setText(docente.Titulo);
         codigo.setText(docente.Codigo);
+        dias.setText(docente.Dias);
         String personPhotoUrl = docente.PP;
         PP.setDrawingCacheEnabled(true);
         PP.buildDrawingCache();
@@ -77,7 +79,6 @@ public class AdapterDocente extends BaseAdapter {
             @Override
             public void onClick(View view) {
             showbottomdialog(docente,bitmap);
-
             }
         });
         return view;
