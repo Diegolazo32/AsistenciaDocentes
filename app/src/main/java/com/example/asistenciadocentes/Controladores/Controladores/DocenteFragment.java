@@ -36,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 public class DocenteFragment extends Fragment {
@@ -48,9 +49,7 @@ public class DocenteFragment extends Fragment {
     public AdapterDocente adapter;
     FirebaseAuth mAuth;
     Button btnaggDocente;
-
     DatabaseReference referencia = FirebaseDatabase.getInstance().getReference(); // Inicialización directa
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,15 +108,19 @@ public class DocenteFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 if (isChecked) {
+                    while (horasEntrada.size() <= which) {
+                        horasEntrada.add(null);
+                    }
+                    while (horasSalida.size() <= which) {
+                        horasSalida.add(null);
+                    }
                     mostrarTimePickerDialog("Salida para " + diasSemana[which], horasSalida, which);
                     mostrarTimePickerDialog("Entrada para " + diasSemana[which], horasEntrada, which);
                 } else {
                     horasEntrada.remove(which);
                     horasSalida.remove(which);
-                    horasEntrada.clear();
-                    horasSalida.clear();
-                    textView2.setText(horasEntrada.toString());
-                    textView3.setText(horasSalida.toString());
+                    horasEntrada.remove(null); // Remover elementos null
+                    horasSalida.remove(null); // Remover elementos null
                 }
                 seleccionados[which] = isChecked;
             }
@@ -138,6 +141,7 @@ public class DocenteFragment extends Fragment {
                 textView3.setText(horasSalida.toString());
             }
         });
+
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -166,17 +170,24 @@ public class DocenteFragment extends Fragment {
                 } else {
                     amPm = "AM";
                 }
-                String horaSeleccionada = String.format(Locale.getDefault(), "%02d:%02d %s", hourOfDay, minute, amPm);
-                while (listaHoras.size() <= indexDia) {
-                    listaHoras.add(null);
+                String horaSeleccionada = String.format(Locale.getDefault(), "%02d:%02d:%02d", hourOfDay, minute, 0);
+                // Eliminar elementos marcados como null y los elementos "Lunes" y "Domingo"
+                Iterator<String> iter = listaHoras.iterator();
+                while (iter.hasNext()) {
+                    String hora = iter.next();
+                    if (hora == null) {
+                        iter.remove();
+                    }
                 }
-                listaHoras.set(indexDia, horaSeleccionada);
-                listaHoras.remove(null);
+                // Agregar la nueva hora seleccionada
+                listaHoras.add(horaSeleccionada);
             }
         }, hora, minuto, false);
         timePickerDialog.setTitle(title);
         timePickerDialog.show();
     }
+
+
     private void showBottomDialog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -234,11 +245,7 @@ public class DocenteFragment extends Fragment {
                     Toast.makeText(getContext(), "Correo electrónico inválido", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // Validación de días trabajados
-                if (diasSeleccionados.isEmpty()) {
-                    Toast.makeText(getContext(), "Por favor selecciona al menos un día trabajado", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 referencia.child("tb_usuarios").get().addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult().getValue() != null) {
                         mAuth = FirebaseAuth.getInstance();
@@ -296,6 +303,5 @@ public class DocenteFragment extends Fragment {
                 return false;
             }
         });
-
     }
 }

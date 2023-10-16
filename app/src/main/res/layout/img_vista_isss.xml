@@ -4,10 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+    <com.example.asistenciadocentes.Controladores.Adaptadores.ZoomableImageView
         android:id="@+id/img_obtenida"
         android:layout_width="210dp"
         android:layout_height="210dp"
         android:layout_gravity="center"/>
+
 
 </LinearLayout>

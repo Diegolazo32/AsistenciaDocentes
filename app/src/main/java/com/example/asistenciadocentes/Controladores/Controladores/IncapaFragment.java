@@ -120,6 +120,9 @@ public class IncapaFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Manejar errores al obtener datos
                 Log.e("Error Add", databaseError.getMessage());
+                //Previene que se cierre la aplicacion y reinicia la actividad
+                startActivity(getActivity().getIntent());
+                getActivity().finish();
             }
         });
     }

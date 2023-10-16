@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        handleAccountSelection(); // Comprobamos si el usuario ya ha iniciado sesión
-        //Validamos si ingresa sesion con codigo y contraseña
+        handleAccountSelection();
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

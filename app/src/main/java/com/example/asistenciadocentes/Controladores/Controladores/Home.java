@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,11 +57,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             String personPhotoUrl = account.getPhotoUrl().toString();
+            if (codigoUsuario != null) {
+                DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios").child(codigoUsuario).child("PP");
+                referencia.setValue(personPhotoUrl);
+            }
             // Colocamos en un bitmap la imagen de perfil
             Glide.with(this).load(personPhotoUrl).into(navUserPhoto);
             if(codigoUsuario != null){
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference referencia = database.getReference("tb_usuarios").child(codigoUsuario).child("PP");
                 String PPURL = account.getPhotoUrl().toString();
                 //Cargamos la imagen de perfil en navUserPhoto
                 Glide.with(this).load(PPURL).into(navUserPhoto);
@@ -82,40 +85,49 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {}
                 });
-            }else{
-                //Obtenemos el codigo del usuario de la autenticacion
-                mAuth = FirebaseAuth.getInstance();
-                String mail = mAuth.getCurrentUser().getEmail();
-                //Buscamos el email en la base de datos
-                DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios");
-                referencia.orderByChild("Correo").equalTo(mail).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                                codigoUsuario = snapshot.getKey();
-                            }
-                            //Obtenemos El nombre y el titulo del usuario
-                            DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios").child(codigoUsuario);
-                            referencia.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String nombre = dataSnapshot.child("Nombre").getValue().toString();
-                                    String titulo = dataSnapshot.child("Titulo").getValue().toString();
-                                    TextView navUserName = headerView.findViewById(R.id.Head_TxtNombre);
-                                    TextView navUserTitulo = headerView.findViewById(R.id.Head_Txtdescp);
-                                    navUserName.setText(nombre);
-                                    navUserTitulo.setText(titulo);
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {}
-                            });
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {}
-                });
             }
+        }
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String mail = currentUser.getEmail();
+            DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios");
+
+            referencia.orderByChild("Correo").equalTo(mail).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            codigoUsuario = snapshot.getKey();
+                        }
+
+                        // Obtenemos El nombre y el titulo del usuario
+                        DatabaseReference referencia = FirebaseDatabase.getInstance().getReference("tb_usuarios").child(codigoUsuario);
+                        referencia.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String nombre = dataSnapshot.child("Nombre").getValue().toString();
+                                String titulo = dataSnapshot.child("Titulo").getValue().toString();
+                                // Cargamos la imagen de perfil en navUserPhoto desde la base de datos
+                                String PPURL = dataSnapshot.child("PP").getValue().toString();
+                                Glide.with(Home.this).load(PPURL).into(navUserPhoto);
+                                TextView navUserName = headerView.findViewById(R.id.Head_TxtNombre);
+                                TextView navUserTitulo = headerView.findViewById(R.id.Head_Txtdescp);
+                                navUserName.setText(nombre);
+                                navUserTitulo.setText(titulo);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         }
         // Mostrar el bitmap en un ImageView
         navUserPhoto.setImageBitmap(bitmap);

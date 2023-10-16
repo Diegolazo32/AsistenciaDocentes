@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controladores.Controladores.HomeFragment">
+    tools:context=".Controladores.Controladores.HomeFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,6 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CODIGO DOCENTE"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -28,14 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0000"
-            android:textSize="26dp"
             android:textColor="@color/white"
+            android:textSize="26dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtcode"
-            app:layout_constraintVertical_bias="0.023" />
+            app:layout_constraintVertical_bias="0.072" />
 
         <ImageView
             android:id="@+id/imgQR"
@@ -47,22 +51,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/CoidgoDoc"
             app:layout_constraintVertical_bias="0.053"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@drawable/denied" />
 
         <TextView
             android:id="@+id/nom_docente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Completo Del Docente"
-            android:textStyle="bold"
-            android:textSize="26dp"
             android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgQR"
-            app:layout_constraintVertical_bias="0.136" />
+            app:layout_constraintVertical_bias="0.079" />
 
         <TextView
             android:id="@+id/titulo_docente"
@@ -83,13 +86,30 @@
             android:id="@+id/Btngenerador"
             android:layout_width="230dp"
             android:layout_height="69dp"
+            android:backgroundTint="@color/orange"
             android:text="Generar Solicitud"
             android:textSize="20dp"
-            android:backgroundTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titulo_docente" />
+            app:layout_constraintTop_toBottomOf="@+id/titulo_docente"
+            app:layout_constraintVertical_bias="0.241" />
+
+        <TextView
+            android:id="@+id/txt_horario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/CoidgoDoc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtcode"
+            app:layout_constraintVertical_bias="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
