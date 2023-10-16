@@ -5,88 +5,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
-        <androidx.cardview.widget.CardView
-            android:layout_width="380dp"
-            android:layout_height="320dp"
-            android:layout_marginTop="25dp"
+    android:gravity="center">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="175dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+
+        <TextView
+            android:id="@+id/nombre_comp"
+            android:layout_width="193dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="47dp"
+            android:text="Nombre completo"
+            android:textAppearance="@style/nombre_comp"
+            android:gravity="top"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/bit_gen"
+            android:layout_width="299dp"
+            android:layout_height="27dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="20dp">
-            <TextView
-                android:id="@+id/bit_gen"
-                android:layout_width="299dp"
-                android:layout_height="27dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="16dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="13dp"
-                android:text="Generacion de Bitacoras"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="13dp"
+            android:text="Entrada marcada por:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
 
-            <Button
-                android:id="@+id/btn_gen_bit"
-                android:layout_width="197dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="58dp"
-                android:text="Generar Mensual"
-                android:backgroundTint="@color/blue"/>
+        <TextView
+            android:id="@+id/codigo_asig"
+            android:layout_width="167dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="75dp"
+            android:text="Codigo asignado"
+            android:textAppearance="@style/codigo_asig"
+            android:gravity="top"
+            android:textSize="15sp"
+            />
 
-            <Button
-                android:id="@+id/Gen_PDF_All"
-                android:layout_width="197dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="115dp"
-                android:text="PDF Bitacora General"
-                android:backgroundTint="#A4D653"/>
+        <View
+            android:id="@+id/image_6"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="209dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/isss" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="295dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="170dp">
+        <TextView
+            android:id="@+id/dia_"
+            android:layout_width="62dp"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
+            android:text="Dia:"
+            android:textAppearance="@style/dia_"
+            android:gravity="top"
+            android:textSize="15sp"
+            />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Buscar Docente" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/hora_"
+            android:layout_width="62dp"
+            android:layout_height="17dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="112dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="102dp"
+            android:text="Hora: "
+            android:textAppearance="@style/hora_"
+            android:gravity="top"
+            android:textSize="15sp"
+            />
 
-            <Button
-                android:id="@+id/Update_Bitacora"
-                android:layout_width="37dp"
-                android:layout_height="45dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="224dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="58dp"
-                android:backgroundTint="@color/blue"
-                android:drawableTop="@drawable/baseline_update_24"/>
+        <TextView
+            android:id="@+id/lunes"
+            android:layout_width="82dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="124dp"
+            android:text="Dia actual"
+            android:textAppearance="@style/lunes"
+            android:gravity="top"
+            android:textSize="15sp"
+            />
 
-            <Button
-                android:id="@+id/PDF_docente_per"
-                android:layout_width="197dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="16dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="238dp"
-                android:text="PDF Bitacora Docente"
-                android:backgroundTint="#F95757"/>
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/am"
+            android:layout_width="72dp"
+            android:layout_height="22dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="112dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="125dp"
+            android:text="Hora actual"
+            android:textAppearance="@style/am"
+            android:gravity="top"
+            android:textSize="12sp"
+            />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
+
+    </androidx.cardview.widget.CardView>
 </androidx.appcompat.widget.LinearLayoutCompat>

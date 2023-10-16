@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controladores.Controladores.BitacoraFragment">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+        <TextView
+            android:id="@+id/bit_gen"
+            android:layout_width="299dp"
+            android:layout_height="27dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="13dp"
+            android:text="Generacion de Bitacoras"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
 
+        <Button
+            android:id="@+id/btn_gen_bit"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="58dp"
+            android:text="Generar Mensual"
+            android:backgroundTint="@color/blue"/>
 
-</FrameLayout>
+        <Button
+            android:id="@+id/Gen_PDF_All"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="115dp"
+            android:text="PDF Bitacora General"
+            android:backgroundTint="#A4D653"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="170dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buscar Docente" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/Update_Bitacora"
+            android:layout_width="37dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="224dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="58dp"
+            android:backgroundTint="@color/blue"
+            android:drawableTop="@drawable/baseline_update_24"/>
+        <Button
+            android:id="@+id/PDF_docente_per"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="238dp"
+            android:text="PDF Bitacora Docente"
+            android:backgroundTint="#F95757"/>
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
