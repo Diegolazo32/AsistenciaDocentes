@@ -38,6 +38,7 @@ public class ImageListAdapter extends ArrayAdapter<Uri> {
             // Carga las imágenes con Glide
             Glide.with(mContext)
                     .load(uri)
+                    .fitCenter()
                     .into(zoomableImageView);
         } else {
             zoomableImageView.setImageResource(R.drawable.baseline_error_24); // Cargar imagen de error

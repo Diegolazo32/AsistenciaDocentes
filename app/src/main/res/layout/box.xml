@@ -26,7 +26,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="47dp"
             android:text="Nombre completo"
-            android:textAppearance="@style/nombre_comp"
             android:gravity="top"
             android:textSize="20sp"
             />
@@ -53,7 +52,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="75dp"
             android:text="Codigo asignado"
-            android:textAppearance="@style/codigo_asig"
             android:gravity="top"
             android:textSize="15sp"
             />
@@ -77,7 +75,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="100dp"
             android:text="Dia:"
-            android:textAppearance="@style/dia_"
             android:gravity="top"
             android:textSize="15sp"
             />
@@ -91,7 +88,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="102dp"
             android:text="Hora: "
-            android:textAppearance="@style/hora_"
             android:gravity="top"
             android:textSize="15sp"
             />
@@ -105,7 +101,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="124dp"
             android:text="Dia actual"
-            android:textAppearance="@style/lunes"
             android:gravity="top"
             android:textSize="15sp"
             />
@@ -119,7 +114,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="125dp"
             android:text="Hora actual"
-            android:textAppearance="@style/am"
             android:gravity="top"
             android:textSize="12sp"
             />

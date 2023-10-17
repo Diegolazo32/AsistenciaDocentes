@@ -16,6 +16,7 @@ public class ZoomableImageView extends AppCompatImageView {
     private PointF midPoint = new PointF();
     private float oldDist = 1f;
     private GestureDetector gestureDetector;
+    private boolean isZoomed = false;
 
     public ZoomableImageView(Context context) {
         super(context);
@@ -32,24 +33,29 @@ public class ZoomableImageView extends AppCompatImageView {
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                if (matrix.isIdentity()) {
+                if (!isZoomed) {
                     // Zoom in
                     matrix.postScale(2f, 2f, e.getX(), e.getY());
+                    isZoomed = true;
                 } else {
                     // Zoom out
                     matrix.reset();
+                    isZoomed = false;
                 }
                 setImageMatrix(matrix);
                 return true;
             }
         });
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
+        int action = event.getAction() & MotionEvent.ACTION_MASK;
 
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+        if (action == MotionEvent.ACTION_POINTER_DOWN && event.getPointerCount() == 2) {
+            return false; // Indica que el evento no fue manejado
+        }
+        gestureDetector.onTouchEvent(event);
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
                 startPoint.set(event.getX(), event.getY());
                 savedMatrix.set(matrix); // Guardamos la matriz actual
@@ -68,10 +74,22 @@ public class ZoomableImageView extends AppCompatImageView {
                     matrix.postScale(scale, scale, midPoint.x, midPoint.y);
                 }
                 break;
+            case MotionEvent.ACTION_UP:  // Agrega este caso para resetear el zoom
+                if (!isZoomed) {
+                    float scaleX = (float) getWidth() / getDrawable().getIntrinsicWidth();
+                    float scaleY = (float) getHeight() / getDrawable().getIntrinsicHeight();
+                    float scale = Math.min(scaleX, scaleY);
+
+                    matrix.setScale(scale, scale);
+                    setImageMatrix(matrix);
+                }
+                break;
         }
         setImageMatrix(matrix);
         return true;
     }
+
+
 
     private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
